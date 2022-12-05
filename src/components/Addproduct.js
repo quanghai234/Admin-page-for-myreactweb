@@ -1,8 +1,9 @@
 import axios from '../api/api';
-import React,{useState} from 'react'
+import React,{useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Addproduct = () => {
+    
     const [name,setName]=useState('');
     const [imglink,setImg] = useState('');
     const [price,setPrice] = useState(0);
@@ -14,12 +15,15 @@ const Addproduct = () => {
     const nav = useNavigate();
 
     const handleAdd = async(e)=>{
+
         e.preventDefault();
+
         await axios.post('product',
         {name,imglink,price,tag,deal,description,specification,sold:0,rate:0}
         )
+        .then(setName(''),setImg(''),setPrice(0),setTag(''),setDeal(''),setDescription(''),setSpecification(''))
         .catch(err=>console.log(err))
-        nav('/product')
+
     }
 
   return (
